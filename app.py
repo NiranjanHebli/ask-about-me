@@ -1,70 +1,103 @@
+"""app.py — Entry point for the Ask About Me Streamlit application."""
+
 import time
 import streamlit as st
 
-# Set up page configurations first
+# Page config (must be first Streamlit call)
 st.set_page_config(
     page_title="Ask About Me - Niranjan Hebli",
     layout="wide",
-    initial_sidebar_state="collapsed"
+    initial_sidebar_state="collapsed",
 )
 
-# Import modular components
+# Session state defaults
+if "theme" not in st.session_state:
+    st.session_state.theme = "dark"
+if "search_query" not in st.session_state:
+    st.session_state.search_query = ""
+if "search_clicked" not in st.session_state:
+    st.session_state.search_clicked = False
+if "cached_query" not in st.session_state:
+    st.session_state.cached_query = ""
+if "cached_response" not in st.session_state:
+    st.session_state.cached_response = None
+
+# Modular imports
 from query_engine import query_azure_ai_foundry
 from ui import (
     inject_custom_css,
     render_search_home,
     render_results_header,
     render_search_stats,
+    render_skeleton_loader,
     render_featured_snippet,
     render_organic_results,
-    render_knowledge_graph
+    render_project_showcase,
+    render_share_button,
+    render_knowledge_graph,
 )
 
-# Inject custom CSS styling
+# Inject CSS for the current theme
 inject_custom_css()
 
-# Session State Initialization
-if "search_query" not in st.session_state:
-    st.session_state.search_query = ""
-if "search_clicked" not in st.session_state:
-    st.session_state.search_clicked = False
+# Handle URL query params (share links & autocomplete navigation)
+q_param = st.query_params.get("q", "")
+if q_param and not st.session_state.search_clicked:
+    st.session_state.search_query = q_param
+    st.session_state.search_clicked = True
 
-# Callback handlers
-def click_suggestion(query):
+# Callbacks
+def click_suggestion(query: str):
     st.session_state.search_query = query
     st.session_state.search_clicked = True
+
 
 def reset_search():
     st.session_state.search_query = ""
     st.session_state.search_clicked = False
+    st.session_state.cached_query = ""
+    st.session_state.cached_response = None
+    st.query_params.clear()
 
-# Render view based on state
+
+# Home page
 if not st.session_state.search_clicked or not st.session_state.search_query.strip():
     render_search_home(click_suggestion_callback=click_suggestion)
+
+# Results page
 else:
-    # Header navigation bar
+    query = st.session_state.search_query
     render_results_header(reset_search_callback=reset_search)
-    
-    # Primary view columns
+
     body_col1, body_col2 = st.columns([6.8, 3.2], gap="large")
-    
+
     with body_col1:
         start_time = time.time()
-        
-        with st.spinner("Searching..."):
-            ans_content, source_label = query_azure_ai_foundry(st.session_state.search_query)
-            
-        elapsed_time = round(time.time() - start_time, 2)
-        
-        # Display search latency info
+        need_fetch = (query != st.session_state.cached_query)
+
+        if need_fetch:
+            # Show shimmer skeleton while fetching
+            skel_ph = st.empty()
+            skel_ph.markdown(render_skeleton_loader(), unsafe_allow_html=True)
+
+            ans_content, source_label = query_azure_ai_foundry(query)
+            elapsed_time = round(time.time() - start_time, 2)
+
+            # Cache result so theme toggles don't re-fetch or re-animate
+            st.session_state.cached_query = query
+            st.session_state.cached_response = (ans_content, source_label, elapsed_time)
+
+            skel_ph.empty()
+            animate = True
+        else:
+            ans_content, source_label, elapsed_time = st.session_state.cached_response
+            animate = False
+
         render_search_stats(elapsed_time)
-        
-        # Display featured response snippet
-        render_featured_snippet(ans_content)
-        
-        # Display organic search results lists
+        render_featured_snippet(ans_content, animate=animate)
         render_organic_results()
-        
+        render_project_showcase()
+        render_share_button(query)
+
     with body_col2:
-        # Display knowledge graph sidebar card
         render_knowledge_graph()
