@@ -33,21 +33,21 @@ def generate_mock_response(question):
     elif any(k in q for k in ["project", "build", "developed", "portfolio"]):
         return (
             "Niranjan has developed several notable projects:\n\n"
-            "1. **Agentic Q&A System:** A multi-agent retrieval system leveraging LangGraph for dynamic supervisor routing and node execution.\n"
-            "2. **Digital Footprint Destination Prediction:** A machine learning pipeline that parses digital footprints and predicts preferences using Python.\n"
-            "3. **Meridian Finance App:** Backend infrastructure for transaction processing and secure financial profiles."
+            "1. **Agentic Q&A System:** Multi-agent retrieval system using LangGraph with dynamic supervisor routing, specialized node endpoints, and self-validation loops. GitHub: [github.com/NiranjanHebli/agentic-qna-system](https://github.com/NiranjanHebli/agentic-qna-system)\n"
+            "2. **NCERT Class IX Retrieval System:** Advanced retrieval and question-answering system for NCERT Class IX textbooks utilizing semantic chunking, metadata filtering, and custom RAG pipeline. GitHub: [github.com/NiranjanHebli/ncert-class-ix-retrieval-system](https://github.com/NiranjanHebli/ncert-class-ix-retrieval-system)\n"
+            "3. **Churn Prediction AI:** Machine learning pipeline that processes customer behavioral data and predicts churn probability using scikit-learn and XGBoost. GitHub: [github.com/NiranjanHebli/churn-prediction-ai](https://github.com/NiranjanHebli/churn-prediction-ai)"
         )
     elif any(k in q for k in ["contact", "email", "phone", "reach", "linkedin", "github", "social"]):
         return (
             "You can contact Niranjan Hebli via:\n\n"
-            "• **Email:** niranjan.hebli@example.com (Please update your profile details for active email)\n"
+            "• **Email:** [niranjanhebli77@gmail.com](mailto:niranjanhebli77@gmail.com)\n"
             "• **GitHub:** [github.com/niranjanhebli](https://github.com/niranjanhebli)\n"
-            "• **LinkedIn:** [linkedin.com/in/niranjanhebli](https://linkedin.com/in/niranjanhebli)\n\n"
+            "• **LinkedIn:** [linkedin.com/in/niranjan-hebli-333211211](https://www.linkedin.com/in/niranjan-hebli-333211211/)\n\n"
             "Feel free to reach out directly to coordinate interview schedules!"
         )
     elif any(k in q for k in ["education", "college", "degree", "university", "graduate"]):
         return (
-            "Niranjan graduated in **2024** with a **Bachelor of Engineering / Technology in Computer Science**."
+            "Niranjan graduated in **2024** with a **Bachelor of Technology (B.Tech) in Computer Science and Engineering (CSE) from the National Institute of Technology Goa (NIT Goa)**."
         )
     else:
         return (
