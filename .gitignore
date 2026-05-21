@@ -1,0 +1,25 @@
+# Environment variables and credentials
+.env
+
+# Python caching directories
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Streamlit config/credentials
+.streamlit/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# IDE files
+.vscode/
+.idea/
