@@ -46,6 +46,7 @@ if q_param and not st.session_state.search_clicked:
     st.session_state.search_query = q_param
     st.session_state.search_clicked = True
 
+
 # Callbacks
 def click_suggestion(query: str):
     st.session_state.search_query = query
@@ -71,23 +72,30 @@ else:
 
     body_col1, body_col2 = st.columns([6.8, 3.2], gap="large")
 
+    with body_col2:
+        render_knowledge_graph()
+
     with body_col1:
         start_time = time.time()
-        need_fetch = (query != st.session_state.cached_query)
+        need_fetch = query != st.session_state.cached_query
 
         if need_fetch:
-            # Show shimmer skeleton while fetching
-            skel_ph = st.empty()
-            skel_ph.markdown(render_skeleton_loader(), unsafe_allow_html=True)
+            loader_ph = st.empty()
+            loader_ph.markdown(render_skeleton_loader(), unsafe_allow_html=True)
+
+            # Yield slightly to allow Streamlit to flush the fully constructed layout
+            # (including col2) to the frontend before the blocking API call.
+            time.sleep(0.05)
 
             ans_content, source_label = query_azure_ai_foundry(query)
+
             elapsed_time = round(time.time() - start_time, 2)
 
             # Cache result so theme toggles don't re-fetch or re-animate
             st.session_state.cached_query = query
             st.session_state.cached_response = (ans_content, source_label, elapsed_time)
 
-            skel_ph.empty()
+            loader_ph.empty()
             animate = True
         else:
             ans_content, source_label, elapsed_time = st.session_state.cached_response
@@ -98,6 +106,3 @@ else:
         render_organic_results()
         render_project_showcase()
         render_share_button(query)
-
-    with body_col2:
-        render_knowledge_graph()
