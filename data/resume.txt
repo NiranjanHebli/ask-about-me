@@ -1,0 +1,212 @@
+Name:
+
+Niranjan Somnath Hebli
+
+Contact Details:
+------------------------
+email: niranjanhebli77@gmail.com
+phone: +91 7028148667
+location: Ponda, India
+linkedin: https://www.linkedin.com/in/niranjan-hebli-333211211/
+github: https://github.com/NiranjanHebli
+
+
+Education
+------------------------
+Post Graduate Diploma
+Indian Institute Of Technology - GandhiNagar
+02/2026 - Present
+India
+CGPA : 8.99
+Course:
+- Agentic AI and ML 
+
+
+Bachelor of Technology (BTECH)
+National Institute of Technology Goa
+12/2020 - 05/2024
+CGPA: 8.16
+Course:
+- Computer Science and Engineering 
+
+
+Projects:
+------------------------
+1. Agentic Q&A System | LangGraph, Python, RAG, Azure
+Architected a sophisticated multi-agent Retrieval-Augmented Generation (RAG) system utilizing LangGraph to orchestrate complex, stateful LLM interactions.
+
+Engineered a dynamic routing mechanism where a central supervisor agent classifies user intent and delegates tasks to specialized sub-agents.
+
+Implemented an iterative self-reflection and validation loop within the agent state graph, ensuring the system critiques and refines its own retrieved context against rigorous evaluation metrics before generating a final response.
+
+Deployed and managed the scalable backend infrastructure utilizing Azure cloud services to handle concurrent processing requests efficiently.
+
+2. NCERT Class IX Retrieval System | Python, LangChain, ChromaDB, RAG
+Developed a targeted educational question-answering application by orchestrating a robust document ingestion and processing pipeline with LangChain.
+
+Applied advanced semantic chunking techniques to parse dense textbook materials, storing the resulting high-dimensional embeddings within a ChromaDB vector database.
+
+Optimized the retrieval process by engineering precise metadata filtering capabilities, allowing the system to accurately isolate and visualize the exact curriculum context needed.
+
+Integrated Generative AI models to synthesize the retrieved context, providing students with highly accurate, syllabus-grounded answers to complex queries.
+
+3. Churn Prediction AI | Python, scikit-learn, XGBoost
+Designed an end-to-end machine learning pipeline to process historical customer behavioral data and accurately identify at-risk profiles.
+
+Conducted comprehensive exploratory data analysis, data cleaning, and feature engineering using robust data manipulation arrays and dataframes to extract predictive signals.
+
+Trained and evaluated a powerful classification model utilizing XGBoost, leveraging the strengths of advanced ensemble methods.
+
+Optimized model hyperparameters to carefully manage the bias-variance tradeoff, resulting in a highly reliable predictive tool that enables proactive, data-driven customer retention strategies.
+
+4. Hemingway-Editor-IEEE-Internship | Svelte, JavaScript, HTML/CSS
+Built a highly responsive, web-based text analysis tool during an IEEE-affiliated internship, utilizing the reactive Svelte framework.
+
+Programmed real-time text parsing algorithms to continuously scan user input, identifying complex grammatical structures, excessive passive voice usage, and overall readability metrics.
+
+Designed an intuitive user interface that provides immediate, color-coded visual feedback to authors, effectively functioning as an automated, real-time quality control linter for written prose.
+
+Streamlined the application state management to ensure seamless, lag-free text processing even with large document inputs.
+
+5. Calculator Application | Java
+Developed a fully functional desktop calculator application using Java and its standard GUI frameworks, implementing robust object-oriented programming (OOP) principles.
+
+Engineered the core mathematical evaluation logic to accurately process sequential arithmetic operations, user input events, and temporary memory states (M+, M-, MR).
+
+6. TextUtils Web Utility | JavaScript, HTML, CSS
+Built a responsive web utility application designed to provide users with real-time text analysis and string manipulation features.
+
+Implemented dynamic state management to instantly calculate word/character counts, estimate reading times, and automatically reformat text based on user-selected parameters.
+
+7. Sudoku Puzzle Generator | JavaScript
+Engineered a programmatic Sudoku generation tool using JavaScript, utilizing recursive backtracking algorithms to create unique, valid, and mathematically solvable grids.
+
+Designed an interactive frontend interface utilizing efficient DOM manipulation to render the generated puzzle matrices dynamically within the browser.
+Tech: HTML, 
+
+
+Work Experience
+------------------------
+Jr Software Developer
+Creative Capsule
+08/2024 - 08/2025
+Verna,Goa,India
+Achievements/Tasks
+- Designed and developed efficient application leveraging <b>Go's </b>robust standard library and tooling. 
+- Implemented scalable and secure server-side applications using<b> NestJS</b> with a modular and TypeScript-centric approach. 
+
+
+Web Developer Intern
+National Institute of Technology Goa
+08/2023 - 02/2024
+Achievements/Tasks
+- Developed website for NIT Goa, which is hosted LIVE currently.
+- Demonstrated expertise in using <b>HTML, TailwindCSS, and JavaScript</b> to build interactive, responsive, and user-friendly web application. 
+- Ensured seamless functioning of websites across various browsers and devices. 
+
+
+
+MLOps Research Intern
+LinuxWorld
+05/2023 - 07/2023
+Jaipur,India
+Achievements/Tasks
+- Leveraged <b>AWS Cloud</b> services to launch and manage <b>EC2 instances</b>. 
+- Implemented   <b>Continuous Integration/Continuous Deployment (CI/CD)</b>   pipelines using   <b>Jenkins</b>   on the same EC2 instance. 
+- Utilized Jenkins for  downloading packages, containerization using <b>docker</b>, and setting up the website using <b>Apache server</b> on the EC2 instance. 
+
+
+Skills
+------------------------
+-Data Structures and Algorithms
+-C & C++
+-FullStack Development(MERN stack)
+-Java
+-Python
+-Machine Learning
+-SQL
+-Linux and Shell
+-Git and Github
+-AWS and Google Cloud
+-Docker
+-Hadoop
+-Jenkins
+-Golang
+-Azure Cloud 
+-Agentic AI
+-FastAPI
+-Swagger
+-Streamlit
+-RAG
+-LangGraph
+-LangChain
+-ChromaDB
+-TypeScript
+-NestJS
+-Express.js
+-Svelte
+-TailwindCSS
+
+Achievements
+------------------------
+1st Place in What the hAIck Hackathon conducted by IGDTUW
+10/2021 - 11/2021
+
+
+2nd Place in ByteCamp Hackathon conducted by Technical Team of SIES|GST
+03/2022
+
+
+Top 10 in DotSlash 5.0 Hackathon conducted by NIT Surat
+01/2022
+
+
+1st Place in TechShorts(Short Video Making Competition) conducted by Amalthea'21 IITGN
+10/2021 - 11/2021
+Video Demo (https://drive.google.com/file/d/1cfQ7jm9rFLL6Rh4jEC9KdH-1GfOQy5sa/view)
+
+
+Finalist at Smart India Hackathon(SIH)
+08/2022
+
+
+3rd Place in Inspirathon  conducted by Don Bosco College of Engineering
+
+
+3rd Place in GoaPoliceHackathon conducted by Goa Police at GEC
+
+
+Volunteering
+------------------------
+Google Developer Student Clubs (GDSC)
+
+Role: GDSC Lead (2022).
+
+Impact: Led the university chapter, organizing technical workshops, fostering a community of student developers, and bridging the gap between theoretical learning and practical application.
+
+Score
+------------------------
+
+GATE CS 2026 : AIR 235 score(831/1000)
+
+GATE DA 2024 : AIR 1291 score(560/1000)
+
+JEE Mains Score 2020 : 97.95 (percentile)
+
+Languages
+------------------------
+-English- (80/100)
+-Hindi- (60/100)
+-Marathi (50/100)
+-Konkani (6)
+
+
+Interests
+------------------------
+-Batminton
+-Chess
+-Table Tennis
+
+
+
+Work Experience : 1 year in creative capsule as a Jr Software Developer

@@ -1,5 +1,16 @@
 streamlit==1.51.0
 requests==2.31.0
 python-dotenv==1.0.1
-pyarrow==17.0.0
+pyarrow
 fpdf2==2.8.3
+groq==0.15.0
+langchain==0.3.14
+langchain-community==0.3.14
+langchain-groq==0.2.1
+langchain-huggingface==0.1.2
+faiss-cpu==1.9.0.post1
+sentence-transformers==3.3.1
+transformers==4.47.1
+tiktoken==0.8.0
+nltk==3.9.1
+numpy==1.26.4

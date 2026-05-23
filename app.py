@@ -1,7 +1,24 @@
-"""app.py — Entry point for the Ask About Me Streamlit application."""
-
 import time
+import threading
 import streamlit as st
+from src.query_engine import query_llm
+from src.rag_engine import get_vector_store
+from src.ui import (
+    inject_custom_css,
+    render_featured_snippet,
+    render_knowledge_graph,
+    render_organic_results,
+    render_project_showcase,
+    render_results_header,
+    render_search_home,
+    render_search_stats,
+    render_share_button,
+    render_skeleton_loader,
+)
+
+# Spin up a background thread to pre-load Hugging Face embeddings and FAISS index
+threading.Thread(target=get_vector_store, daemon=True).start()
+
 
 # Page config (must be first Streamlit call)
 st.set_page_config(
@@ -22,20 +39,6 @@ if "cached_query" not in st.session_state:
 if "cached_response" not in st.session_state:
     st.session_state.cached_response = None
 
-# Modular imports
-from query_engine import query_azure_ai_foundry
-from ui import (
-    inject_custom_css,
-    render_search_home,
-    render_results_header,
-    render_search_stats,
-    render_skeleton_loader,
-    render_featured_snippet,
-    render_organic_results,
-    render_project_showcase,
-    render_share_button,
-    render_knowledge_graph,
-)
 
 # Inject CSS for the current theme
 inject_custom_css()
@@ -87,7 +90,7 @@ else:
             # (including col2) to the frontend before the blocking API call.
             time.sleep(0.05)
 
-            ans_content, source_label = query_azure_ai_foundry(query)
+            ans_content, source_label = query_llm(query)
 
             elapsed_time = round(time.time() - start_time, 2)
 

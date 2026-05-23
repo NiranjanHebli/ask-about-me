@@ -1,5 +1,3 @@
-"""pdf_generator.py — Generates a formatted PDF resume for Niranjan Hebli."""
-
 from fpdf import FPDF
 
 

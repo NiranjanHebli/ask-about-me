@@ -1,0 +1,20 @@
+{
+    "original_text_length_chars": 7513,
+    "tokenizers": {
+        "Tiktoken (cl100k_base - OpenAI)": {
+            "token_count": 1655,
+            "tokens_per_character": 0.22028483961134035,
+            "encoding_speed_seconds": 0.00872650146484375
+        },
+        "HuggingFace (gpt2)": {
+            "token_count": 1880,
+            "tokens_per_character": 0.2502329295887129,
+            "encoding_speed_seconds": 0.4192091703414917
+        },
+        "NLTK (Word Tokenize)": {
+            "token_count": 1250,
+            "tokens_per_character": 0.16637827765206975,
+            "encoding_speed_seconds": 0.011443209648132325
+        }
+    }
+}
