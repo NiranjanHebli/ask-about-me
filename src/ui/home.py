@@ -1,5 +1,7 @@
 import time
+
 import streamlit as st
+
 from .theme import _c, render_theme_toggle
 from .utils import inject_autocomplete_js
 

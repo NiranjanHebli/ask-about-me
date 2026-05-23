@@ -1,0 +1,23 @@
+{
+    "RecursiveCharacterTextSplitter": {
+        "total_chunks": 19,
+        "average_chunk_size_chars": 395.0,
+        "size_variance": 2884.1052631578946,
+        "retrieval_time_seconds": 1.522017002105713,
+        "top_retrieved_snippet": "Name:\n\nNiranjan Somnath Hebli\n\nContact Details:\n------------------------\nemail: niranjanhebli77@gmail.com\nphone: +91 7028148667\nlocation: Ponda, India..."
+    },
+    "CharacterTextSplitter": {
+        "total_chunks": 19,
+        "average_chunk_size_chars": 394.89473684210526,
+        "size_variance": 2898.1994459833795,
+        "retrieval_time_seconds": 0.11144804954528809,
+        "top_retrieved_snippet": "Name:\n\nNiranjan Somnath Hebli\n\nContact Details:\n------------------------\nemail: niranjanhebli77@gmail.com\nphone: +91 7028148667\nlocation: Ponda, India..."
+    },
+    "NLTKTextSplitter": {
+        "total_chunks": 24,
+        "average_chunk_size_chars": 418.0416666666667,
+        "size_variance": 27309.78993055555,
+        "retrieval_time_seconds": 0.21201395988464355,
+        "top_retrieved_snippet": "Name:\n\nNiranjan Somnath Hebli\n\nContact Details:\n------------------------\nemail: niranjanhebli77@gmail.com\nphone: +91 7028148667\nlocation: Ponda, India..."
+    }
+}
