@@ -1,95 +1,97 @@
 import json
+import os
 import time
 
 from groq import Groq
+import numpy as np
 
 from src.config import GROQ_API_KEY, GROQ_MODEL_NAME
-from src.rag_engine import retrieve_context
+from src.rag_engine import retrieve_context, get_embeddings
 
 
-def generate_mock_response(question):
-    """Generates a mock response for Sandbox/Demo Mode."""
+def generate_mock_response(question, quick_search_cache):
+    """Generates a mock response for Sandbox/Demo Mode using semantic intent routing."""
     q = question.lower()
 
     # Irrelevant topic / jailbreak keywords check for local sandbox mode
     irrelevant_keywords = [
-        "cake",
-        "recipe",
-        "weather",
-        "poem",
-        "joke",
-        "code ",
-        "write a",
-        "how to bake",
-        "chocolate",
-        "ignore instructions",
-        "system prompt",
-        "jailbreak",
+        "cake", "recipe", "weather", "poem", "joke", "code ", 
+        "write a", "how to", "what is a", "chocolate", 
+        "ignore instructions", "system prompt", "jailbreak"
     ]
     if any(k in q for k in irrelevant_keywords):
         return "I am sorry, I am an AI Assistant trained to give insights from Niranjan's Resume"
 
-    if any(
-        k in q for k in ["skill", "stack", "technology", "programming", "languages"]
-    ):
-        return (
-            "Based on Niranjan Hebli's profile details, his technical skills include:\n\n"
-            "• **Programming Languages:** Python, JavaScript, HTML5, CSS3, SQL\n"
-            "• **AI/GenAI Frameworks:** LangGraph, LangChain, OpenAI API, Azure AI Foundry, LLM Orchestration, RAG (Retrieval-Augmented Generation)\n"
-            "• **Backend & Databases:** Flask, FastAPI, Node.js, Express, PostgreSQL, MongoDB, Redis\n"
-            "• **Tools & DevOps:** Git, Docker, Azure DevOps, VS Code"
-        )
-    elif any(k in q for k in ["experience", "work", "job", "career", "history"]):
-        return (
-            "Niranjan has been working as a **Generative AI Developer / Software Engineer** since May 2024. "
-            "His main focus areas include:\n\n"
-            "• Architecting and implementing multi-agent reasoning graphs using **LangGraph**.\n"
-            "• Setting up advanced **RAG pipelines** for context-aware querying.\n"
-            "• Building scalable backend services using **Flask** and **FastAPI**.\n"
-            "• Automating data extraction and intelligence pipelines."
-        )
-    elif any(k in q for k in ["project", "build", "developed", "portfolio"]):
-        return (
-            "Niranjan has developed several notable projects:\n\n"
-            "1. **Agentic Q&A System:** Multi-agent retrieval system using LangGraph with dynamic supervisor routing, specialized node endpoints, and self-validation loops. GitHub: [github.com/NiranjanHebli/agentic-qna-system](https://github.com/NiranjanHebli/agentic-qna-system)\n"
-            "2. **NCERT Class IX Retrieval System:** Advanced retrieval and question-answering system for NCERT Class IX textbooks utilizing semantic chunking, metadata filtering, and custom RAG pipeline. GitHub: [github.com/NiranjanHebli/ncert-class-ix-retrieval-system](https://github.com/NiranjanHebli/ncert-class-ix-retrieval-system)\n"
-            "3. **Churn Prediction AI:** Machine learning pipeline that processes customer behavioral data and predicts churn probability using scikit-learn and XGBoost. GitHub: [github.com/NiranjanHebli/churn-prediction-ai](https://github.com/NiranjanHebli/churn-prediction-ai)"
-        )
-    elif any(
-        k in q
-        for k in ["contact", "email", "phone", "reach", "linkedin", "github", "social"]
-    ):
-        return (
-            "You can contact Niranjan Hebli via:\n\n"
-            "• **Email:** [niranjanhebli77@gmail.com](mailto:niranjanhebli77@gmail.com)\n"
-            "• **GitHub:** [github.com/niranjanhebli](https://github.com/niranjanhebli)\n"
-            "• **LinkedIn:** [linkedin.com/in/niranjan-hebli-333211211](https://www.linkedin.com/in/niranjan-hebli-333211211/)\n\n"
-            "Feel free to reach out directly to coordinate interview schedules!"
-        )
-    elif any(
-        k in q for k in ["education", "college", "degree", "university", "graduate"]
-    ):
-        return "Niranjan graduated in **2024** with a **Bachelor of Technology (B.Tech) in Computer Science and Engineering (CSE) from the National Institute of Technology Goa (NIT Goa)**."
-    else:
-        return (
-            "Niranjan Hebli is a Software Engineer and Generative AI Developer. He specializes in Python, GenAI frameworks like "
-            "LangGraph and LangChain, and full-stack backend development.\n\n"
-            "You can try searching:\n"
-            "• What is Niranjan's tech stack?\n"
-            "• Tell me about Niranjan's experience.\n"
-            "• How can I contact Niranjan?\n"
-            "• Tell me about his projects."
-        )
+    intents = {
+        "What is Niranjan's tech stack?": [
+            "What is Niranjan's tech stack?", "skills", "technologies", "programming languages", "tech stack"
+        ],
+        "Tell me about Niranjan's experience": [
+            "Tell me about Niranjan's experience", "work history", "job", "career", "employment"
+        ],
+        "What projects has Niranjan developed?": [
+            "What projects has Niranjan developed?", "his portfolio", "what did he build", "projects developed", "personal projects"
+        ],
+        "Tell me about Niranjan's education": [
+            "Tell me about Niranjan's education", "college", "degree", "university", "graduate", "study"
+        ],
+        "How can I contact Niranjan?": [
+            "How can I contact Niranjan?", "email", "phone", "linkedin", "github", "reach him", "contact details"
+        ]
+    }
+
+    try:
+        embeddings_model = get_embeddings()
+        query_emb = np.array(embeddings_model.embed_query(question))
+
+        best_intent = None
+        best_score = -1
+
+        for intent_key, phrases in intents.items():
+            phrases_embs = embeddings_model.embed_documents(phrases)
+            for phrase_emb in phrases_embs:
+                phrase_emb = np.array(phrase_emb)
+                score = np.dot(query_emb, phrase_emb) / (np.linalg.norm(query_emb) * np.linalg.norm(phrase_emb))
+                if score > best_score:
+                    best_score = score
+                    best_intent = intent_key
+
+        if best_score > 0.45 and best_intent in quick_search_cache:
+            return quick_search_cache[best_intent]
+    except Exception as e:
+        print(f"Semantic routing failed, falling back to basic checks: {e}")
+
+    return (
+        "Niranjan Hebli is a Software Engineer and Generative AI Developer. He specializes in Python, GenAI frameworks like "
+        "LangGraph and LangChain, and full-stack backend development.\n\n"
+        "You can try searching:\n"
+        "• What is Niranjan's tech stack?\n"
+        "• Tell me about Niranjan's experience.\n"
+        "• How can I contact Niranjan?\n"
+        "• Tell me about his projects."
+    )
 
 
 def query_llm(question):
     """Sends queries to Groq API using context from FAISS RAG."""
+
+    cache_file_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data", "quick_search_cache.json")
+    try:
+        with open(cache_file_path, "r", encoding="utf-8") as f:
+            quick_search_cache = json.load(f)
+    except Exception as e:
+        print(f"Error loading cache: {e}")
+        quick_search_cache = {}
+
+    if question in quick_search_cache:
+        return quick_search_cache[question], "Cached (Resume)"
+
     is_demo_mode = not GROQ_API_KEY or "your_groq" in GROQ_API_KEY
 
     if is_demo_mode:
         time.sleep(0.6)
         return (
-            generate_mock_response(question),
+            generate_mock_response(question, quick_search_cache),
             "Local Demo Mode (No API keys configured)",
         )
 
