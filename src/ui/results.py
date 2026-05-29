@@ -1,5 +1,7 @@
 import time
+
 import streamlit as st
+
 from .home import _get_google_logo_html
 from .theme import render_theme_toggle
 from .utils import inject_autocomplete_js
